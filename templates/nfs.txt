@@ -49,7 +49,7 @@ Category = Filesystems
        type = nfs
        export_path = /mnt/exports/data
       
-       [[[cluster-init cyclecloud/nfs:default:1.0.0]]]
+       [[[cluster-init cyclecloud/nfs:default:1.1.0]]]
         
        [[[input-endpoint ganglia]]]
        PrivatePort = 8652
