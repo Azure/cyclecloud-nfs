@@ -69,7 +69,7 @@ Order = 1
         [[[parameter Filer]]]
         HideLabel = true
         Config.Plugin = pico.widget.HtmlTemplateWidget
-        Config.Template := "<table><tr><td><img src='https://github.com/azure/cyclecloud-nfs/raw/master/icon.png' width='192' height='192'></td></tr><tr><td><p>Creates a basic, single-node NFS File Server exporting a configurable directory.  This file server may be mounted by other clusters as a cluster-local, persistent, shared storage device.</p></td></tr></table>"
+        Config.Template := "<table role=\"presentation\"><tr><td><img alt=\"NFS icon\" src='https://github.com/azure/cyclecloud-nfs/raw/master/icon.png' width='192' height='192'></td></tr><tr><td><p>Creates a basic, single-node NFS File Server exporting a configurable directory.  This file server may be mounted by other clusters as a cluster-local, persistent, shared storage device.</p></td></tr></table>"
 
         [[[parameter Readme]]]
         HideLabel = true
