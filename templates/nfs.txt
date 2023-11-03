@@ -136,19 +136,18 @@ Order = 20
         ParameterType = Azure.ManagedIdentity
         DefaultValue = =undefined
 
-
-    [[parameters Filesystem Configuration]]
-
         [[[parameter BootDiskSize]]]
         Description = Optional: Size of the OS/boot disk in GB for all nodes in the cluster (leave at 0 to use Image size)
         ParameterType = Integer
         Config.Plugin = pico.form.NumberTextBox
-        # Config.Plugin = pico.form.NumberSlider
         Config.MinValue = 0
         Config.MaxValue = 32,000
         Config.IntegerOnly = true
         Config.Increment = 64
         DefaultValue = 0
+
+
+    [[parameters Filesystem Configuration]]
 
         [[[parameter FsConfigDesc]]]
         HideLabel = true
@@ -197,7 +196,7 @@ Order = 20
         Label = Base OS
         ParameterType = Cloud.Image
         Config.OS = linux
-        DefaultValue = cycle.image.centos7
+        DefaultValue = almalinux8
 
         [[[parameter FileServerClusterInitSpecs]]]
         Label = FileServerClusterInitSpecs
@@ -216,7 +215,7 @@ Order = 20
 
         [[[parameter UsePublicNetwork]]]
         Label = Public IP
-        DefaultValue = true
+        DefaultValue = false
         ParameterType = Boolean
         Config.Label = Access master node from the Internet
 
