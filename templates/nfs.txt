@@ -3,6 +3,7 @@
 ################################
 
 [cluster nfs]
+IconUrl = static/cloud/cluster/ui/ClusterIcon/nfs.png
 FormLayout = selectionpanel
 Category = Filesystems
 
@@ -14,6 +15,13 @@ Category = Filesystems
     Region = $Region
     KeyPairLocation = ~/.ssh/cyclecloud.pem
     UsePublicNetwork = $UsePublicNetwork
+    Azure.Identities = $ManagedIdentity
+
+        [[[configuration]]]
+        # May be used to identify the ID in cluster-init scripts
+        cluster.identities.default = $ManagedIdentity
+
+
 
     [[node filer]]
     MachineType = $MachineType
@@ -27,6 +35,11 @@ Category = Filesystems
 
        cyclecloud.discoverable = true
        role = sharedfs
+
+        [[[volume boot]]]
+        Size = ${ifThenElse(BootDiskSize > 0, BootDiskSize, undefined)}
+        SSD = True
+
 
        [[[volume nfs-vol1]]]
        Size = $FilesystemSize
@@ -49,7 +62,7 @@ Category = Filesystems
        type = nfs
        export_path = /mnt/exports/data
       
-       [[[cluster-init cyclecloud/nfs:default:1.1.0]]]
+       [[[cluster-init cyclecloud/nfs:default:1.1.1]]]
         
        [[[input-endpoint ganglia]]]
        PrivatePort = 8652
@@ -69,7 +82,7 @@ Order = 1
         [[[parameter Filer]]]
         HideLabel = true
         Config.Plugin = pico.widget.HtmlTemplateWidget
-        Config.Template := "<table role=\"presentation\"><tr><td><img alt=\"NFS icon\" src='https://github.com/azure/cyclecloud-nfs/raw/master/icon.png' width='192' height='192'></td></tr><tr><td><p>Creates a basic, single-node NFS File Server exporting a configurable directory.  This file server may be mounted by other clusters as a cluster-local, persistent, shared storage device.</p></td></tr></table>"
+        Config.Template := "<table role=\"presentation\"><tr><td><img alt=\"NFS logo\" src='https://github.com/azure/cyclecloud-nfs/raw/master/icon.png' width='192' height='192'></td></tr><tr><td><p>Creates a basic, single-node NFS File Server exporting a configurable directory.  This file server may be mounted by other clusters as a cluster-local, persistent, shared storage device.</p></td></tr></table>"
 
         [[[parameter Readme]]]
         HideLabel = true
@@ -117,7 +130,25 @@ Order = 20
         Description = The credentials for the cloud provider
         ParameterType = Cloud.Credentials
 
+        [[[parameter ManagedIdentity]]]
+        Label = Managed Id
+        Description = Optionally assign an Azure user assigned managed identity to all nodes to access Azure resources using assigned roles.
+        ParameterType = Azure.ManagedIdentity
+        DefaultValue = =undefined
+
+
     [[parameters Filesystem Configuration]]
+
+        [[[parameter BootDiskSize]]]
+        Description = Optional: Size of the OS/boot disk in GB for all nodes in the cluster (leave at 0 to use Image size)
+        ParameterType = Integer
+        Config.Plugin = pico.form.NumberTextBox
+        # Config.Plugin = pico.form.NumberSlider
+        Config.MinValue = 0
+        Config.MaxValue = 32,000
+        Config.IntegerOnly = true
+        Config.Increment = 64
+        DefaultValue = 0
 
         [[[parameter FsConfigDesc]]]
         HideLabel = true
