@@ -31,8 +31,6 @@ Category = Filesystems
 
 
        [[[configuration]]]
-       run_list = recipe[cganglia::server], recipe[cganglia::client]
-
        cyclecloud.discoverable = true
        role = sharedfs
 
@@ -63,10 +61,6 @@ Category = Filesystems
        export_path = /mnt/exports/data
       
        [[[cluster-init cyclecloud/nfs:default:1.1.1]]]
-        
-       [[[input-endpoint ganglia]]]
-       PrivatePort = 8652
-       PublicPort = 8652        
 
        [[[network-interface eth0]]]
        AssociatePublicIpAddress = $UsePublicNetwork
