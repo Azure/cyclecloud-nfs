@@ -51,10 +51,10 @@ Category = Filesystems
        raid_level = 0
 
        [[[configuration cyclecloud.exports.shared]]]
-       disabled = true
+       disabled = ${!EnableBuiltinSchedAndShared}
 
        [[[configuration cyclecloud.exports.sched]]]
-       disabled = true
+       disabled = ${!EnableBuiltinSchedAndShared}
 
        [[[configuration cyclecloud.exports.nfs_data]]]
        type = nfs
@@ -142,6 +142,13 @@ Order = 20
 
 
     [[parameters Filesystem Configuration]]
+
+        [[[parameter EnableBuiltinSchedAndShared]]]
+        Label = Built-in Exports
+        ParameterType = Boolean
+        Config.Label = Export the built-in /shared and /sched paths used by many cluster types.
+        DefaultValue = true
+
 
         [[[parameter FsConfigDesc]]]
         HideLabel = true
