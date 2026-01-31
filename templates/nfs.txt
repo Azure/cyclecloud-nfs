@@ -60,7 +60,7 @@ Category = Filesystems
        type = nfs
        export_path = /mnt/exports/data
       
-       [[[cluster-init cyclecloud/nfs:default:1.2.1]]]
+       [[[cluster-init cyclecloud/nfs:default]]]
 
        [[[network-interface eth0]]]
        AssociatePublicIpAddress = $UsePublicNetwork
